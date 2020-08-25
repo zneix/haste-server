@@ -1,6 +1,9 @@
-npm-debug.log
 node_modules
+.vscode
+data
+
+npm-debug.log
+
 *.swp
 *.swo
-data
 *.DS_Store

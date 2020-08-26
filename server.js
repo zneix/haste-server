@@ -59,13 +59,16 @@ if (config.recompressStaticAssets){
         winston.info(`compressed ${file} into ${dest}`);
     }
 }
+
+(async function(){
+
 //send the static documents into the preferred store, skipping expirations
 for (const name in config.documents){
     let path = config.documents[name];
     winston.info('loading static document', { name: name, path: path });
     let data = fs.readFileSync(path, 'utf8');
     if (data){
-        preferredStore.set(name, data, doc => winston.debug('loaded static document', { success: doc }), true);
+		await preferredStore.set(name, data, doc => winston.debug('loaded static document', { success: doc }), true);
     }
     else {
         winston.warn('failed to load static document', { name: name, path: path });
@@ -92,22 +95,22 @@ if (config.rateLimits) app.use(expressRateLimit(config.rateLimits));
 //try API first
 
 //get raw documents
-app.get('/raw/:id', (req, res) => {
+app.get('/raw/:id', async (req, res) => {
     const key = req.params.id.split('.')[0];
     const skipExpire = Boolean(config.documents[key]);
-    return documentHandler.handleGetRaw(key, res, skipExpire);
+	return await documentHandler.handleGetRaw(key, res, skipExpire);
 });
 
 //add documents
-app.post('/documents', (req, res) => {
-    return documentHandler.handlePost(req, res);
+app.post('/documents', async (req, res) => {
+	return await documentHandler.handlePost(req, res);
 });
 
 //get documents
-app.get('/documents/:id', (req, res) =>  {
+app.get('/documents/:id', async (req, res) =>  {
     const key = req.params.id.split('.')[0];
     const skipExpire = Boolean(config.documents[key]);
-    return documentHandler.handleGet(key, res, skipExpire);
+	return await documentHandler.handleGet(key, res, skipExpire);
 });
 
 //try static next
@@ -132,3 +135,5 @@ app.use(st({
 }));
 
 app.listen(config.port, config.host, () => winston.info(`listening on ${config.host}:${config.port}`));
+
+})();

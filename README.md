@@ -154,6 +154,43 @@ or post.
 
 All of which are optional except `type` with very logical default values.
 
+### MongoDB
+
+To use mongodb storage you must install the 'mongodb' pachage in npm
+
+`npm install mongodb`
+
+Once you've done that, your config section should look like:
+
+``` json
+{
+  "type": "mongodb",
+  "expire": false,
+  "connectionUrl": "mongodb://localhost:27017/haste",
+  "clientOptions": {
+    "useUnifiedTopology": true,
+    "useNewUrlParser": true,
+    "keepAlive": true,
+    "keepAliveInitialDelay": 60000,
+    "poolSize": 30,
+    "socketTimeoutMS": 360000,
+    "connectTimeoutMS": 360000,
+    "auth": {
+        "user": "username",
+        "password": "password"
+    },
+    "authSource": "admin"
+  }
+}
+```
+
+You can adjust properties in `clientOptions`, but the ones in config are considered as the most optimal defaults.
+You can omit `auth` object if database has no authentication.
+No further database configuration is required.
+
+You can set `expire` option to the number of seconds in which documents will expire.
+This is set to `false` by default, but will constantly kick back expirations on each view or post.
+
 ### Memcached
 
 To use memcache storage you must install the `memcached` package via npm

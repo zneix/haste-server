@@ -20,7 +20,7 @@ describe('redis_document_store', function() {
   describe('set', function() {
 
     it('should be able to set a key and have an expiration set', function(done) {
-      var store = new RedisDocumentStore({ expire: 10 });
+      let store = new RedisDocumentStore({ expire: 10 });
       store.set('hello1', 'world', function() {
         RedisDocumentStore.client.ttl('hello1', function(err, res) {
           assert.ok(res > 1);
@@ -30,7 +30,7 @@ describe('redis_document_store', function() {
     });
 
     it('should not set an expiration when told not to', function(done) {
-      var store = new RedisDocumentStore({ expire: 10 });
+      let store = new RedisDocumentStore({ expire: 10 });
       store.set('hello2', 'world', function() {
         RedisDocumentStore.client.ttl('hello2', function(err, res) {
           assert.equal(-1, res);
@@ -40,7 +40,7 @@ describe('redis_document_store', function() {
     });
 
     it('should not set an expiration when expiration is off', function(done) {
-      var store = new RedisDocumentStore({ expire: false });
+      let store = new RedisDocumentStore({ expire: false });
       store.set('hello3', 'world', function() {
         RedisDocumentStore.client.ttl('hello3', function(err, res) {
           assert.equal(-1, res);

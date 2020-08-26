@@ -1,6 +1,6 @@
 const fs = require('fs');
 const winston = require('winston');
-const uglify = require('uglify-js');
+const minify = require('babel-minify');
 const st = require('st');
 const app = require('express')();
 const expressRateLimit = require('express-rate-limit');
@@ -48,17 +48,17 @@ else {
 //compress static javascript assets
 if (config.recompressStaticAssets){
     let files = fs.readdirSync('./static');
+    //https://regex101.com/r/5cJagJ/2
     for (const file of files){
-        if ((file.indexOf('.js') == file.length - 3) && (file.indexOf('.min.js') == -1)){
-            let dest = `${file.substring(0, file.length - 3)}.min${file.substring(file.length - 3)}`;
-            let origCode = fs.readFileSync(`./static/${file}`, 'utf8');
-
-            fs.writeFileSync(`./static/${dest}`, uglify.minify(origCode).code, 'utf8');
-            winston.info(`compressed ${file} into ${dest}`);
-        }
+        let info = file.match(/^((.+)(?<!\.min)(\.js))$/);
+        if (!info) continue;
+        const dest = `${info[2]}.min${info[3]}`;
+        const code = fs.readFileSync(`./static/${file}`, 'utf8');
+        const {code: newCode} = minify(code);
+        fs.writeFileSync(`./static/${dest}`, newCode, 'utf8');
+        winston.info(`compressed ${file} into ${dest}`);
     }
 }
-
 //send the static documents into the preferred store, skipping expirations
 for (const name in config.documents){
     let path = config.documents[name];

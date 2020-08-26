@@ -7,4 +7,4 @@ data
 *.DS_Store
 
 npm-debug.log
-static/application.min.js
+static/*.min.js

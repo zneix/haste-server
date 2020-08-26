@@ -1,11 +1,11 @@
 /* global it, describe, afterEach */
 
-var assert = require('assert');
+const assert = require('assert');
 
-var winston = require('winston');
+const winston = require('winston');
 winston.remove(winston.transports.Console);
 
-var RedisDocumentStore = require('../lib/document_stores/redis');
+const RedisDocumentStore = require('../lib/document_stores/redis');
 
 describe('redis_document_store', function() {
 

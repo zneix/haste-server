@@ -27,7 +27,7 @@ haste_document.prototype.load = function(key, callback, lang) {
       _this.data = res.data;
       try {
         var high;
-        if (lang === 'txt') {
+        if (lang == 'txt') {
           high = { value: _this.htmlEscape(res.data) };
         }
         else if (lang) {
@@ -178,7 +178,7 @@ haste.extensionMap = {
 // If not found, return the type itself - which we'll place as the extension
 haste.prototype.lookupExtensionByType = function(type) {
   for (var key in haste.extensionMap) {
-    if (haste.extensionMap[key] === type) return key;
+    if (haste.extensionMap[key] == type) return key;
   }
   return type;
 };
@@ -266,7 +266,7 @@ haste.prototype.configureButtons = function() {
       label: 'Save',
       shortcutDescription: 'control + s',
       shortcut: function(evt) {
-        return evt.ctrlKey && (evt.keyCode === 83);
+        return evt.ctrlKey && (evt.keyCode == 83);
       },
       action: function() {
         if (_this.$textarea.val().replace(/^\s+|\s+$/g, '') !== '') {
@@ -278,7 +278,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .new'),
       label: 'New',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.keyCode === 78;
+        return evt.ctrlKey && evt.keyCode == 78;
       },
       shortcutDescription: 'control + n',
       action: function() {
@@ -289,7 +289,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .duplicate'),
       label: 'Duplicate & Edit',
       shortcut: function(evt) {
-        return _this.doc.locked && evt.ctrlKey && evt.keyCode === 68;
+        return _this.doc.locked && evt.ctrlKey && evt.keyCode == 68;
       },
       shortcutDescription: 'control + d',
       action: function() {
@@ -300,7 +300,7 @@ haste.prototype.configureButtons = function() {
       $where: $('#box2 .raw'),
       label: 'Just Text',
       shortcut: function(evt) {
-        return evt.ctrlKey && evt.shiftKey && evt.keyCode === 82;
+        return evt.ctrlKey && evt.shiftKey && evt.keyCode == 82;
       },
       shortcutDescription: 'control + shift + r',
       action: function() {
@@ -366,7 +366,7 @@ haste.prototype.configureShortcuts = function() {
 $(function() {
 
   $('textarea').keydown(function(evt) {
-    if (evt.keyCode === 9) {
+    if (evt.keyCode == 9) {
       evt.preventDefault();
       var myValue = '  ';
       // http://stackoverflow.com/questions/946534/insert-text-into-textarea-with-jquery

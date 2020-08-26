@@ -22,7 +22,7 @@ STDOUT.  Check the README there for more details and usages.
 
 ## Tested Browsers
 
-* Firefox 8
+* Firefox 81
 * Chrome 17
 * Safari 5.3
 
@@ -41,7 +41,7 @@ STDOUT.  Check the README there for more details and usages.
 * `maxLength` - maximum length of a paste (default 400000)
 * `staticMaxAge` - max age for static assets (86400)
 * `recompressStaticAssets` - whether or not to compile static js assets (true)
-* `documents` - static documents to serve (ex: http://hastebin.com/about.com)
+* `documents` - static documents to serve (ex: http://hastebin.com/about.md)
   in addition to static assets.  These will never expire.
 * `storage` - storage options (see below)
 * `logging` - logging preferences
@@ -51,10 +51,10 @@ STDOUT.  Check the README there for more details and usages.
 ## Rate Limiting
 
 When present, the `rateLimits` option enables built-in rate limiting courtesy
-of `connect-ratelimit`.  Any of the options supported by that library can be
-used and set in `config.json`.
+of `express-rate-limit`.  Any of the options supported by that library can be
+used and set in `config.js`.
 
-See the README for [connect-ratelimit](https://github.com/dharmafly/connect-ratelimit)
+See the README for [express-rate-limit](https://www.npmjs.com/package/express-rate-limit)
 for more information!
 
 ## Key Generation
@@ -92,8 +92,8 @@ something like:
 
 ``` json
 {
-  "path": "./data",
-  "type": "file"
+  "type": "file",
+  "path": "./data"
 }
 ```
 

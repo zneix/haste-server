@@ -1,9 +1,9 @@
 /* global describe, it */
 
-var assert = require('assert');
+const assert = require('assert');
 
-var DocumentHandler = require('../lib/document_handler');
-var Generator = require('../lib/key_generators/random');
+const DocumentHandler = require('../lib/document_handler');
+const Generator = require('../lib/key_generators/random');
 
 describe('document_handler', function() {
 

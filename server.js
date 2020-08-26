@@ -1,155 +1,134 @@
-const http = require('http');
 const fs = require('fs');
-
-const uglify = require('uglify-js');
 const winston = require('winston');
-const connect = require('connect');
-const route = require('connect-route');
-const connect_st = require('st');
-const connect_rate_limit = require('connect-ratelimit');
+const uglify = require('uglify-js');
+const st = require('st');
+const app = require('express')();
+const expressRateLimit = require('express-rate-limit');
 
 const DocumentHandler = require('./lib/document_handler');
+const HasteUtils = require('./lib/util');
 
-// Load the configuration and set some defaults
-const config = require('./config.json');
-config.port = process.env.PORT || config.port || 7777;
-config.host = process.env.HOST || config.host || 'localhost';
+const utils = new HasteUtils();
 
-// Set up the logger
-if (config.logging) {
-  try {
-    winston.remove(winston.transports.Console);
-  } catch(e) {
-    /* was not present */
-  }
+//set up logger
+//only Console for now, gotta utilize config.json in the future
+winston.add(new winston.transports.Console({
+    level: 'silly',
+    format: winston.format.combine(
+        winston.format.colorize(),
+        winston.format.printf(info => `${info.level}: ${info.message} ${utils.stringifyJSONMessagetoLogs(info)}`)
+    ),
+}));
 
-  let detail, type;
-  for (let i = 0; i < config.logging.length; i++) {
-    detail = config.logging[i];
-    type = detail.type;
-    delete detail.type;
-    winston.add(winston.transports[type], detail);
-  }
+//load config and set some defaults
+const config = require('./config');
+config.port = config.port || 7777;
+config.host = config.host || '127.0.0.1';
+
+//defaulting storage type to file
+if (!config.storage){
+    config.storage = {
+        type: 'file',
+        path: './data'
+    };
 }
+if (!config.storage.type) config.storage.type = 'file';
 
-// build the store from the config on-demand - so that we don't load it
-// for statics
-if (!config.storage) {
-  config.storage = { type: 'file' };
-}
-if (!config.storage.type) {
-  config.storage.type = 'file';
-}
-
-let Store, preferredStore;
-
-if (process.env.REDISTOGO_URL && config.storage.type === 'redis') {
-  let redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
-  Store = require('./lib/document_stores/redis');
-  preferredStore = new Store(config.storage, redisClient);
+let preferredStore;
+if (process.env.REDISTOGO_URL && config.storage.type == 'redis'){
+    let redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
+    let Store = require('./lib/document_stores/redis');
+    preferredStore = new Store(config.storage, redisClient);
 }
 else {
-  Store = require('./lib/document_stores/' + config.storage.type);
-  preferredStore = new Store(config.storage);
+    let Store = require(`./lib/document_stores/${config.storage.type}`);
+    preferredStore = new Store(config.storage);
 }
 
-// Compress the static javascript assets
-if (config.recompressStaticAssets) {
-  let list = fs.readdirSync('./static');
-  for (let j = 0; j < list.length; j++) {
-    let item = list[j];
-    if ((item.indexOf('.js') === item.length - 3) && (item.indexOf('.min.js') === -1)) {
-      let dest = item.substring(0, item.length - 3) + '.min' + item.substring(item.length - 3);
-      let orig_code = fs.readFileSync('./static/' + item, 'utf8');
+//compress static javascript assets
+if (config.recompressStaticAssets){
+    let files = fs.readdirSync('./static');
+    for (const file of files){
+        if ((file.indexOf('.js') == file.length - 3) && (file.indexOf('.min.js') == -1)){
+            let dest = `${file.substring(0, file.length - 3)}.min${file.substring(file.length - 3)}`;
+            let origCode = fs.readFileSync(`./static/${file}`, 'utf8');
 
-      fs.writeFileSync('./static/' + dest, uglify.minify(orig_code).code, 'utf8');
-      winston.info('compressed ' + item + ' into ' + dest);
+            fs.writeFileSync(`./static/${dest}`, uglify.minify(origCode).code, 'utf8');
+            winston.info(`compressed ${file} into ${dest}`);
+        }
     }
-  }
 }
 
-// Send the static documents into the preferred store, skipping expirations
-let path, data;
-for (let name in config.documents) {
-  path = config.documents[name];
-  data = fs.readFileSync(path, 'utf8');
-  winston.info('loading static document', { name: name, path: path });
-  if (data) {
-    preferredStore.set(name, data, function(cb) {
-      winston.debug('loaded static document', { success: cb });
-    }, true);
-  }
-  else {
-    winston.warn('failed to load static document', { name: name, path: path });
-  }
+//send the static documents into the preferred store, skipping expirations
+for (const name in config.documents){
+    let path = config.documents[name];
+    winston.info('loading static document', { name: name, path: path });
+    let data = fs.readFileSync(path, 'utf8');
+    if (data){
+        preferredStore.set(name, data, doc => winston.debug('loaded static document', { success: doc }), true);
+    }
+    else {
+        winston.warn('failed to load static document', { name: name, path: path });
+    }
 }
 
-// Pick up a key generator
-let pwOptions = config.keyGenerator || {};
+//pick up a key generator
+let pwOptions = config.keyGenerator || new Object;
 pwOptions.type = pwOptions.type || 'random';
-let gen = require('./lib/key_generators/' + pwOptions.type);
-let keyGenerator = new gen(pwOptions);
+let Gen = require(`./lib/key_generators/${pwOptions.type}`);
+let keyGenerator = new Gen(pwOptions);
 
-// Configure the document handler
+//configure the document handler
 let documentHandler = new DocumentHandler({
-  store: preferredStore,
-  maxLength: config.maxLength,
-  keyLength: config.keyLength,
-  keyGenerator: keyGenerator
+    store: preferredStore,
+    maxLength: config.maxLength,
+    keyLength: config.keyLength,
+    keyGenerator: keyGenerator
 });
 
-let app = connect();
+//rate limit all requests
+if (config.rateLimits) app.use(expressRateLimit(config.rateLimits));
 
-// Rate limit all requests
-if (config.rateLimits) {
-  config.rateLimits.end = true;
-  app.use(connect_rate_limit(config.rateLimits));
-}
+//try API first
 
-// first look at API calls
-app.use(route(function(router) {
-  // get raw documents - support getting with extension
-  router.get('/raw/:id', function(request, response) {
-    let key = request.params.id.split('.')[0];
-    let skipExpire = !!config.documents[key];
-    return documentHandler.handleRawGet(key, response, skipExpire);
-  });
-  // add documents
-  router.post('/documents', function(request, response) {
-    return documentHandler.handlePost(request, response);
-  });
-  // get documents
-  router.get('/documents/:id', function(request, response) {
-    let key = request.params.id.split('.')[0];
-    let skipExpire = !!config.documents[key];
-    return documentHandler.handleGet(key, response, skipExpire);
-  });
+//get raw documents
+app.get('/raw/:id', (req, res) => {
+    const key = req.params.id.split('.')[0];
+    const skipExpire = Boolean(config.documents[key]);
+    return documentHandler.handleGetRaw(key, res, skipExpire);
+});
+
+//add documents
+app.post('/documents', (req, res) => {
+    return documentHandler.handlePost(req, res);
+});
+
+//get documents
+app.get('/documents/:id', (req, res) =>  {
+    const key = req.params.id.split('.')[0];
+    const skipExpire = Boolean(config.documents[key]);
+    return documentHandler.handleGet(key, res, skipExpire);
+});
+
+//try static next
+app.use(st({
+    path: './static',
+    passthrough: true,
+    index: false
 }));
 
-// Otherwise, try to match static files
-app.use(connect_st({
-  path: __dirname + '/static',
-  content: { maxAge: config.staticMaxAge },
-  passthrough: true,
-  index: false
-}));
-
-// Then we can loop back - and everything else should be a token,
-// so route it back to /
-app.use(route(function(router) {
-  router.get('/:id', function(request, response, next) {
-    request.sturl = '/';
+//then we can loop back - and everything else should be a token,
+//so route it back to /
+app.get('/:id', (req, res, next) => {
+    req.sturl = '/';
     next();
-  });
-}));
+});
 
-// And match index
-app.use(connect_st({
-  path: __dirname + '/static',
+//and match index
+app.use(st({
   content: { maxAge: config.staticMaxAge },
-  index: 'index.html'
+    path: './static',
+    index: 'index.html'
 }));
 
-http.createServer(app).listen(config.port, config.host);
-
-winston.info('listening on ' + config.host + ':' + config.port);
+app.listen(config.port, config.host, () => winston.info(`listening on ${config.host}:${config.port}`));

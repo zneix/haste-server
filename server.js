@@ -10,6 +10,11 @@ const HasteUtils = require('./lib/util');
 
 const utils = new HasteUtils();
 
+//load config and set some defaults
+const config = require('./config');
+config.port = config.port || 7777;
+config.host = config.host || '127.0.0.1';
+
 //set up logger
 winston.add(new winston.transports.Console({
 	level: config.logging.level,
@@ -18,11 +23,6 @@ winston.add(new winston.transports.Console({
 		winston.format.printf(info => `${info.level}: ${info.message} ${utils.stringifyJSONMessagetoLogs(info)}`)
 	),
 }));
-
-//load config and set some defaults
-const config = require('./config');
-config.port = config.port || 7777;
-config.host = config.host || '127.0.0.1';
 
 //defaulting storage type to file
 if (!config.storage){

@@ -28,13 +28,13 @@ haste_document.prototype.load = function(key, callback, lang){
 			let high;
 			try {
 				if (lang == 'txt'){
-				high = { value: _this.htmlEscape(res.data) };
+					high = { value: _this.htmlEscape(res.data) };
 				}
 				else if (lang){
-				high = hljs.highlight(lang, res.data);
+					high = hljs.highlight(lang, res.data);
 				}
 				else {
-				high = hljs.highlightAuto(res.data);
+					high = hljs.highlightAuto(res.data);
 				}
 			}
 			catch(err){
@@ -68,7 +68,7 @@ haste_document.prototype.save = function(data, callback){
 			_this.locked = true;
 			_this.key = res.key;
 			let high = hljs.highlightAuto(data);
-				callback(null, {
+			callback(null, {
 				value: high.value,
 				key: res.key,
 				language: high.language,
@@ -130,7 +130,7 @@ haste.prototype.configureKey = enable => {
 	let $this;
 	$('#box2 .function').each(function(){
 		$this = $(this);
-		for (el of enable){
+		for (const el of enable){
 			if ($this.hasClass(el)){
 				$this.addClass('enabled');
 				return true;
@@ -315,7 +315,7 @@ haste.prototype.configureButtons = function(){
 			}
 		}
 	];
-	for (button of this.buttons){
+	for (const button of this.buttons){
 		this.configureButton(button);
 	}
 };
@@ -346,7 +346,7 @@ haste.prototype.configureButton = function(options){
 haste.prototype.configureShortcuts = function(){
 	let _this = this;
 	$(document.body).keydown(function(evt){
-		for (button of _this.buttons){
+		for (const button of _this.buttons){
 			if (button.shortcut && button.shortcut(evt)){
 				evt.preventDefault();
 				button.action();

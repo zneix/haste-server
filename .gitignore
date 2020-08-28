@@ -8,3 +8,4 @@ data
 
 npm-debug.log
 static/*.min.js
+config.js

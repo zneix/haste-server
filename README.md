@@ -40,7 +40,7 @@ STDOUT.  Check the README there for more details and usages.
 * `keyLength` - the length of the keys to user (default 10)
 * `maxLength` - maximum length of a paste (default 400000)
 * `staticMaxAge` - max age for static assets (86400)
-* `recompressStaticAssets` - whether or not to compile static js assets (true)
+* `compressStaticAssets` - whether or not to compile static js assets (true)
 * `documents` - static documents to serve (ex: http://hastebin.com/about.md)
   in addition to static assets.  These will never expire.
 * `storage` - storage options (see below)

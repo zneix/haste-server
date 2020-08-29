@@ -1,6 +1,6 @@
 # Haste
 
-Sharing code is a good thing, and it should be _really_ easy to do it.
+Sharing code is a good thing, and it should be _really_ easy to do.
 A lot of times, I want to show you something I'm seeing - and that's where we
 use pastebins.
 
@@ -8,28 +8,25 @@ Haste is the prettiest, easiest to use pastebin ever made.
 
 ## Basic Usage
 
-Type what you want me to see, click "Save", and then copy the URL.  Send that
-URL to someone and they'll see what you see.
+Paste your code, click "Save" and copy the URL.
+Send that URL to someone and they'll see your code.
 
-To make a new entry, click "New" (or type 'control + n')
+To make a new entry, click "New" (or hit `Ctrl + N`)
 
 ## From the Console
 
-Most of the time I want to show you some text, it's coming from my current
-console session.  We should make it really easy to take code from the console
-and send it to people.
+Sometimes I want to show you some text from my current console session.  
+We made it really easy to take code from the console and send it to people.
 
-`cat something | haste` # https://hastebin.com/1238193
+`cat something | haste` # https://hastebin.com/2107420
 
-You can even take this a step further, and cut out the last step of copying the
-URL with:
+You can take this a step further and directly copy the URL with:
 
 * osx: `cat something | haste | pbcopy`
 * linux: `cat something | haste | xsel`
 * windows: check out [WinHaste](https://github.com/ajryan/WinHaste)
 
-After running that, the STDOUT output of `cat something` will show up at a URL
-which has been conveniently copied to your clipboard.
+After running that, URL to your paste will be copied to clipboard.
 
 That's all there is to that, and you can install it with `gem install haste`
 right now.
@@ -38,15 +35,14 @@ right now.
 
 ## Duration
 
-Pastes will stay for 30 days from their last view.  They may be removed earlier
-and without notice.
+Pastes will not be removed, however I preseve all rights to make any exceptions.  
+Contact me directly with any issues about documents uploaded at `zzneix@gmail.com`
 
 ## Privacy
 
-While the contents of hastebin.com are not directly crawled by any search robot
-that obeys "robots.txt", there should be no great expectation of privacy.  Post
-things at your own risk. Not responsible for any loss of data or removed
-pastes.
+While the contents of haste.zneix.eu are not crawled by any search robot that 
+obeys "robots.txt", there should be no great expectation of privacy.  
+Post things at your own risk. Not responsible for any removed pastes.
 
 ## Open Source
 
@@ -55,8 +51,9 @@ Haste can easily be installed behind your network, and it's all open source!
 * [haste-client](https://github.com/seejohnrun/haste-client)
 * [haste-server](https://github.com/zneix/haste-server)
 
-## Author
+## Authors
+
+Project continued by zneix <zzneix@gmail.com>
 
 Original Code by John Crepezzi <john.crepezzi@gmail.com>
-Continued by zneix <zzneix@gmail.com>
 Key Design by Brian Dawson <bridawson@gmail.com>

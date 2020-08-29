@@ -27,8 +27,8 @@ module.exports = {
 		"level": "info"
 	},
 
-	//rate limits for requests, handled by express-rate-limit
-	//options can be found here: https://github.com/nfriedly/express-rate-limit/blob/master/lib/express-rate-limit.js#L7-L14
+	//rate limits for requests, can be omitted
+	//handled by express-rate-limit, options can be found here: https://github.com/nfriedly/express-rate-limit/blob/master/lib/express-rate-limit.js#L7-L14
 	"rateLimits": {
 		"windowMs": 30 * 60 * 1000,
 		"max": 250

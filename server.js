@@ -33,16 +33,8 @@ if (!config.storage){
 }
 if (!config.storage.type) config.storage.type = 'file';
 
-let preferredStore;
-if (process.env.REDISTOGO_URL && config.storage.type == 'redis'){
-	let redisClient = require('redis-url').connect(process.env.REDISTOGO_URL);
-	let Store = require('./lib/document_stores/redis');
-	preferredStore = new Store(config.storage, redisClient);
-}
-else {
-	let Store = require(`./lib/document_stores/${config.storage.type}`);
-	preferredStore = new Store(config.storage);
-}
+let Store = require(`./lib/document_stores/${config.storage.type}`);
+let preferredStore = new Store(config.storage);
 
 //compress static javascript assets
 if (config.compressStaticAssets){

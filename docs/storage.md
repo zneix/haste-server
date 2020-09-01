@@ -50,17 +50,17 @@ Not rewritten yet, to be filled in
 Requires npm package (Tested on v3.6.0):
 
 ```bash
-npm i mongodb@3.6.0
+npm i mongodb
 ```
 
 Stores documents in a specified database in a collection named `entries`.  
-Expiration property in config can be changed to a value in seconds after which entries will not be served to users.
+Expiration property in config can be changed to a value in seconds after which entries will not be served.
 
 Optimal default config:  
 > **NOTE:** Depending on how your MongoDB server is configured, options as connectionUri may vary.  
 If server has no authentication, you can omit the `auth` object.  
 
-Check [documentation](http://mongodb.github.io/node-mongodb-native/3.5/api/MongoClient.html) for more detailed explanation about available `clientOptions` properties.
+Check [documentation](https://mongodb.github.io/node-mongodb-native/3.5/api/MongoClient.html) for more detailed explanation about available `clientOptions` properties.
 
 ```json
 {
@@ -92,8 +92,28 @@ Not rewritten yet, to be filled in
 
 ## Redis
 
-Not rewritten yet, to be filled in
+Requires npm package (Tested on v4.17.3):
 
+```bash
+npm install ioredis
+```
+
+Stores documents in a specified redis database.  
+Expiration property in config can be changed to a value in seconds after which entries will not be served.
+
+`redisOptions` object below contains default values, but you can adjust those to match your redis-server configuration. Check [documentation](https://github.com/luin/ioredis/blob/master/API.md#new-redisport-host-options) for more information about accepted values.
+
+```json
+{
+	"type": "redis",
+	"expire": 0,
+	"redisOptions": {
+		"host": "127.0.0.1",
+		"port": 6379,
+		"db": 1
+	}
+}
+```
 
 ## RethinkDB
 

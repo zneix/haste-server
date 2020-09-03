@@ -87,8 +87,32 @@ Check [documentation](https://mongodb.github.io/node-mongodb-native/3.5/api/Mong
 
 ## Postgres
 
-Not rewritten yet, to be filled in
+Requires npm package (Tested on v8.3.3):
 
+```bash
+npm install pg
+```
+
+You will have to create the database and add a table named `entries`. It can be easily done with the following query:  
+
+`CREATE TABLE entries (id SERIAL PRIMARY KEY, key VARCHAR(255) NOT NULL, value TEXT NOT NULL, expiration INT, UNIQUE(key));`
+
+Properties in `clientOptions` are optimal defaults and should be sufficient to run haste, however more detailed explanation for them can be found in pg package [documentation](https://node-postgres.com/api/client).  
+Expiration property in config can be changed to a value in seconds after which entries will not be served.
+
+```json
+{
+	"type": "postgres",
+	"expire": 0,
+	"clientOptions": {
+		"host": "localhost",
+		"port": 5432,
+		"user": "username",
+		"password": "password",
+		"database": "haste"
+	}
+}
+```
 
 ## Redis
 

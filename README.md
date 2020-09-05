@@ -17,13 +17,11 @@ Major design objectives:
 * Be really simple
 * Be easy to set up and use
 
-~~Haste works really well with a little utility called [haste-client](https://github.com/seejohnrun/haste-client), allowing you to do things like:~~
+I also rewrote Command Line utility [haste-client](https://github.com/zneix/haste-client), which can do things like:
 
-~~`cat file | haste`~~
+`cat file | haste`
 
-~~which will output a URL to paste containing the contents of `file`. Check the README there for more details and usages.~~
-
-There will be a rewritten version of this CLI Haste Client in Golang soon.
+it outputs URL to a paste containing contents of `file`. Check [repo](https://github.com/zneix/haste-client) for more details.
 
 
 # Installation

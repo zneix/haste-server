@@ -25,7 +25,7 @@ If the library guesses the language wrong you can replace the file extension wit
 | Haskell | hs
 | HTTP | http
 | TOML/INI | ini
-| Java | Java
+| Java | java
 | JavaScript | js
 | JSON | json
 | Kotlin | kt

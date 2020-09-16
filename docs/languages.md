@@ -3,8 +3,8 @@ Haste-server supports all 38 "common" languages according to [highlight.js](http
 Any extra languages originally put into this project have remained as well for a total of 47 languages.
 
 Below is a table of every supported language and it's shorthand if it has one. The shorthand can be used as a file extension.
-(For example haste.zneix.eu/ovanazeyad.rust could be re-written as haste.zneix.eu/ovanazeyad.rs).
-It is also perfectly valid to just use the name of the language (haste.zneix.eu/sadf.haskell)
+(For example https://haste.zneix.eu/ovanazeyad.rust could be re-written as https://haste.zneix.eu/ovanazeyad.rs).
+It is also perfectly valid to just use the name of the language (https://haste.zneix.eu/sadf.haskell)
 
 If the library guesses the language wrong you can replace the file extension with the correct language to force highlighting for that language
 

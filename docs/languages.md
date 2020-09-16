@@ -12,7 +12,7 @@ If the library guesses the language wrong you can replace the file extension wit
 | Apache Config | apache
 | Bash | sh
 | C | c
-| C-like foundation | clike
+|  C-like foundation grammar<br>for C/C++ grammars | clike
 | CoffeeScript | coffee
 | C++ | cpp
 | C# | cs

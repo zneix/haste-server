@@ -338,7 +338,7 @@ haste.extensionMap = {
 	lsp: 'lisp', mk: 'makefile', md: 'markdown', mm: 'objectivec', phptemp: 'php-template',
 	pl: 'perl',	txt: 'plaintext', py: 'python', pyrepl: 'python-repl', rb: 'ruby', rs: 'rust',
 	sc: 'scala', sm: 'smalltalk', ts: 'typscript', vbs: 'vbscript', html: 'xml', htm: 'xml',
-}
+};
 
 
 

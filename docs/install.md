@@ -1,11 +1,12 @@
 # Short instructions
 
 1. Install [node](https://nodejs.org/en/) and npm packages.
-2. Rename `example.config.js` to `config.js`. (Defaults are enough)
+2. Copy `config/default.js` to `config/development.js` or edit `production.js` depending on your NODE_ENV. (Defaults are enough)
 3. (Optional) Change document storage system ([guide](./storage.md))
 4. Run with `npm start` or `node .`
 
-
+# Heroku Ready
+Haste Server contains a Heroku-Ready default configuration named `production.js` that respects `process.env.PORT`
 
 # Full installation instructions
 

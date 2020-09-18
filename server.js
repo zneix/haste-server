@@ -4,6 +4,7 @@ const minify = require('babel-minify');
 const st = require('st');
 const app = require('express')();
 const expressRateLimit = require('express-rate-limit');
+const config = require('config');
 
 const DocumentHandler = require('./lib/document_handler');
 const HasteUtils = require('./lib/util');
@@ -11,7 +12,6 @@ const HasteUtils = require('./lib/util');
 const utils = new HasteUtils();
 
 //load config and set some defaults
-const config = require('./config');
 config.port = config.port || 7777;
 config.host = config.host || '127.0.0.1';
 

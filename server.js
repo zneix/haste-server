@@ -10,48 +10,56 @@ const HasteUtils = require('./lib/util');
 
 const utils = new HasteUtils();
 
-//load config and set some defaults
-const config = require('./config');
-config.port = config.port || 7777;
-config.host = config.host || '127.0.0.1';
-
-//set up logger
-winston.add(new winston.transports.Console({
-	level: config.logging.level,
-	format: winston.format.combine(
-		winston.format.colorize(),
-		winston.format.printf(info => `${info.level}: ${info.message} ${utils.stringifyJSONMessagetoLogs(info)}`)
-	),
-}));
-
-//defaulting storage type to file
-if (!config.storage){
-	config.storage = {
-		type: 'file',
-		path: './data'
-	};
-}
-if (!config.storage.type) config.storage.type = 'file';
-
-let Store = require(`./lib/document_stores/${config.storage.type}`);
-let preferredStore = new Store(config.storage);
-
-//compress static javascript assets
-if (config.compressStaticAssets){
-	let files = fs.readdirSync('./static');
-	//https://regex101.com/r/5cJagJ/2
-	for (const file of files){
-		let info = file.match(/^((.+)(?<!\.min)(\.js))$/);
-		if (!info) continue;
-		const dest = `${info[2]}.min${info[3]}`;
-		const code = fs.readFileSync(`./static/${file}`, 'utf8');
-		const {code: newCode} = minify(code);
-		fs.writeFileSync(`./static/${dest}`, newCode, 'utf8');
-		winston.info(`compressed ${file} into ${dest}`);
-	}
-}
-
 (async function(){
+
+	//"out-of-box" support - copy example config if it doesn't exist
+	if (!fs.existsSync('./config.js')){
+		await fs.promises.copyFile('./example.config.js', './config.js').catch(err => {
+			winston.error('failed to copy example config', {error: err});
+			process.exit(1);
+		});
+	}
+	//load config and set some defaults
+	const config = require('./config');
+
+	config.host = process.env.HASTE_HOST || config.host || '127.0.0.1';
+	config.port = process.env.HASTE_PORT || config.port || 7777;
+
+	//set up logger
+	winston.add(new winston.transports.Console({
+		level: config.logging.level,
+		format: winston.format.combine(
+			winston.format.colorize(),
+			winston.format.printf(info => `${info.level}: ${info.message} ${utils.stringifyJSONMessagetoLogs(info)}`)
+		),
+	}));
+
+	//defaulting storage type to file
+	if (!config.storage){
+		config.storage = {
+			type: 'file',
+			path: './data'
+		};
+	}
+	if (!config.storage.type) config.storage.type = 'file';
+
+	let Store = require(`./lib/document_stores/${config.storage.type}`);
+	let preferredStore = new Store(config.storage);
+
+	//compress static javascript assets
+	if (config.compressStaticAssets){
+		let files = fs.readdirSync('./static');
+		//https://regex101.com/r/5cJagJ/2
+		for (const file of files){
+			let info = file.match(/^((.+)(?<!\.min)(\.js))$/);
+			if (!info) continue;
+			const dest = `${info[2]}.min${info[3]}`;
+			const code = fs.readFileSync(`./static/${file}`, 'utf8');
+			const {code: newCode} = minify(code);
+			fs.writeFileSync(`./static/${dest}`, newCode, 'utf8');
+			winston.info(`compressed ${file} into ${dest}`);
+		}
+	}
 
 	//send the static documents into the preferred store, skipping expirations
 	for (const name in config.documents){

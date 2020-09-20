@@ -22,8 +22,8 @@ const utils = new HasteUtils();
 	//load config and set some defaults
 	const config = require('./config');
 
-	config.host = process.env.HASTE_HOST || config.host || '127.0.0.1';
-	config.port = process.env.HASTE_PORT || config.port || 7777;
+	config.host = process.env.HOST || config.host || '127.0.0.1';
+	config.port = process.env.PORT || config.port || 7777;
 
 	//set up logger
 	winston.add(new winston.transports.Console({

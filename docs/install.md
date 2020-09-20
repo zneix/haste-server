@@ -53,18 +53,21 @@ npm install
 
 ## Edit configuration
 
-There is an [example configuration file](../example.config.json) available for you to copy:
+Haste can already work "out-of-the-box" with no config changes - useful for environments like Heroku or Dokku.  
+You can use `HOST` and `PORT` environment variables for host and port specification to override config values.  
+
+However, there is an [example configuration file](../example.config.js) available for you to copy:
 
 ```bash
-cp example.config.json config.json
+cp example.config.js config.js
 ```
 
 By default storage system stores haste documents as hashed files in `./data` directory.  
 
 Rest of provided defaults are enough to run the server, however, example config contains comments about what each value does and you can adjust the options to your likings.
 
-[Guide for all supported storage systems.](./storage.md).  
-[Guide for all supported key generators.](./generators.md).  
+[Guide for all supported storage systems](./storage.md).  
+[Guide for all supported key generators](./generators.md).  
 
 
 ## Run the server

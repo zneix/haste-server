@@ -1,9 +1,10 @@
 # Short instructions
 
-1. Install [node](https://nodejs.org/en/) and npm packages.
-2. Rename `example.config.js` to `config.js`. (Defaults are enough)
-3. (Optional) Change document storage system ([guide](./storage.md))
-4. Run with `npm start` or `node .`
+1. Install [node](https://nodejs.org/en/)
+2. Build with `npm run-script build`
+3. Rename `example.config.js` to `config.js` (Defaults are enough)
+4. (Optional) Change document storage system ([guide](./storage.md))
+5. Run with `npm start` or `node .`
 
 
 
@@ -44,10 +45,10 @@ npm -v
 
 ## Install dependencies
 
-Hastebin makes use of several node packages, which can be installed with npm by executing this command:
+Hastebin makes use of several node packages, you can install them and configure with:
 
 ```bash
-npm install
+npm run-script build
 ```
 
 

@@ -1,6 +1,5 @@
 const winston = require('winston');
 const fs = require('fs');
-const minify = require('babel-minify');
 const st = require('st');
 const app = require('express')();
 const expressRateLimit = require('express-rate-limit');
@@ -45,21 +44,6 @@ const utils = new HasteUtils();
 
 	let Store = require(`./lib/document_stores/${config.storage.type}`);
 	let preferredStore = new Store(config.storage);
-
-	//compress static javascript assets
-	if (config.compressStaticAssets){
-		let files = fs.readdirSync('./static');
-		//https://regex101.com/r/5cJagJ/2
-		for (const file of files){
-			let info = file.match(/^((.+)(?<!\.min)(\.js))$/);
-			if (!info) continue;
-			const dest = `${info[2]}.min${info[3]}`;
-			const code = fs.readFileSync(`./static/${file}`, 'utf8');
-			const {code: newCode} = minify(code);
-			fs.writeFileSync(`./static/${dest}`, newCode, 'utf8');
-			winston.info(`compressed ${file} into ${dest}`);
-		}
-	}
 
 	//send the static documents into the preferred store, skipping expirations
 	for (const name in config.documents){

@@ -17,9 +17,6 @@ module.exports = {
 	//max age for static website assets
 	"staticMaxAge": 60 * 60 * 24,
 
-	//whether or not to minify static js scripts which load faster for end-users
-	"compressStaticAssets": true,
-
 	//TODO: re-add more options to logging
 	//logging preferences
 	"logging": {

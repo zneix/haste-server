@@ -340,15 +340,6 @@ haste.extensionMap = {
 	sc: 'scala', sm: 'smalltalk', ts: 'typscript', vbs: 'vbscript', html: 'xml', htm: 'xml',
 };
 
-
-
-
-
-
-
-
-
-
 ///// Tab behavior in the textarea - 2 spaces per tab
 $(function(){
 	$('textarea').keydown(function(evt){

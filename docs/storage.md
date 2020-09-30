@@ -47,12 +47,6 @@ Not rewritten yet, to be filled in
 
 ## MongoDB
 
-Requires npm package (Tested on v3.6.0):
-
-```bash
-npm i mongodb
-```
-
 Stores documents in a specified database in a collection named `entries`.  
 Expiration property in config can be changed to a value in seconds after which entries will not be served.
 
@@ -87,12 +81,6 @@ Check [documentation](https://mongodb.github.io/node-mongodb-native/3.5/api/Mong
 
 ## Postgres
 
-Requires npm package (Tested on v8.3.3):
-
-```bash
-npm install pg
-```
-
 You will have to create the database and add a table named `entries`. It can be easily done with the following query:  
 
 `CREATE TABLE entries (id SERIAL PRIMARY KEY, key VARCHAR(255) NOT NULL, value TEXT NOT NULL, expiration INT, UNIQUE(key));`
@@ -115,12 +103,6 @@ Expiration property in config can be changed to a value in seconds after which e
 ```
 
 ## Redis
-
-Requires npm package (Tested on v4.17.3):
-
-```bash
-npm install ioredis
-```
 
 Stores documents in a specified redis database.  
 Expiration property in config can be changed to a value in seconds after which entries will not be served.

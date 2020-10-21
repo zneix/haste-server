@@ -1,6 +1,12 @@
-npm-debug.log
 node_modules
+.vscode
+data
+data-test
+
 *.swp
 *.swo
-data
 *.DS_Store
+
+npm-debug.log
+static/*.min.js
+config.js

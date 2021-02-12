@@ -1,3 +1,4 @@
+version: "3.0"
 services:
   haste-server:
     build:
@@ -8,7 +9,7 @@ services:
     network_mode: "bridge"
     volumes:
       # Default place to put files, can be removed with other storage system
-      - ./data:/usr/src/app/data:rw
+      - haste-data:/usr/src/app/data:rw
 
       # Create config.js from the example config and make changes
       - ./config.js:/usr/src/app/config.js:ro
@@ -19,3 +20,6 @@ services:
       - "127.0.0.1:7777:7777/tcp"
       - "::1:7777:7777/tcp"
     restart: unless-stopped
+
+volumes:
+  haste-data:

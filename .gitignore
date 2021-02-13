@@ -1,5 +1,6 @@
 node_modules
 .vscode
+.idea
 data
 data-test
 
@@ -8,5 +9,5 @@ data-test
 *.DS_Store
 
 npm-debug.log
-static/*.min.js
+static/application.min.js
 config.js

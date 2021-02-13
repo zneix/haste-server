@@ -15,10 +15,7 @@
 	},
 	"main": "server.js",
 	"dependencies": {
-		"@babel/cli": "^7.11.6",
-		"@babel/core": "^7.11.6",
 		"aws-sdk": "^2.842.0",
-		"babel-plugin-minify-mangle-names": "^0.5.0",
 		"busboy": "^0.3.1",
 		"express": "^4.17.1",
 		"express-rate-limit": "^5.1.3",
@@ -39,12 +36,17 @@
 		"rethinkdbdash": "^2.3.31"
 	},
 	"devDependencies": {
+		"@babel/cli": "^7.11.6",
+		"@babel/core": "^7.11.6",
+		"babel-plugin-minify-mangle-names": "^0.5.0",
 		"eslint": "^7.10.0",
 		"mocha": "^8.1.3"
 	},
 	"scripts": {
 		"build": "npm install && npm run minify",
 		"build-min": "npm install --no-optional && npm run minify",
+		"prod": "npm run build && npm prune --production",
+		"prod-min": "npm run build-min && npm prune --production --no-optional",
 		"minify": "npx babel --plugins minify-mangle-names --no-comments --minified static/application.js --out-file static/application.min.js",
 		"start": "node server.js",
 		"test": "mocha --recursive",

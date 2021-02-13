@@ -1,19 +1,11 @@
-FROM node:lts-alpine
-
-RUN apk add --no-cache curl
-
-RUN mkdir -p /usr/src/app && \
-    chown node:node /usr/src/app
-
-USER node:node
+FROM mhart/alpine-node:14 AS build
 
 WORKDIR /usr/src/app
+COPY . .
 
-COPY --chown=node:node . .
-
-# Replace build with build-min to exclude the optional dbms dependencies
+# Replace prod with prod-min to exclude the optional dbms dependencies
 # and uncomment the needed one below to build a smaller Docker image.
-RUN npm run build
+RUN npm run prod
 #RUN npm install pg
 #RUN npm install aws-sdk
 #RUN npm install memcached
@@ -21,8 +13,13 @@ RUN npm run build
 #RUN npm install ioredis
 #RUN npm install rethinkdbdash
 
-ENV PORT=7777
+FROM mhart/alpine-node:slim-14
+RUN apk add --no-cache curl
 
+WORKDIR /app
+COPY --from=build /usr/src/app .
+
+ENV PORT=7777
 EXPOSE ${PORT}
 STOPSIGNAL SIGINT
 ENTRYPOINT [ "node", "server.js" ]

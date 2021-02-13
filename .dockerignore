@@ -1,12 +1,23 @@
 node_modules
 .vscode
+.idea
+.git
+.github
+.gitignore
+.dockerignore
+.eslintignore
+.eslintrc.json
 data
 data-test
+docs
+test
 
 *.swp
 *.swo
 *.DS_Store
 
 npm-debug.log
-static/*.min.js
+static/application.min.js
 config.js
+Dockerfile
+docker-compose.yml

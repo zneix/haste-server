@@ -11,15 +11,15 @@ WORKDIR /usr/src/app
 
 COPY --chown=node:node . .
 
+# Replace build with build-min to exclude the optional dbms dependencies
+# and uncomment the needed one below to build a smaller Docker image.
 RUN npm run build
-
-# uncomment dbms client packages here
-#RUN npm install pg@8.5.1 && \
-#    npm install aws-sdk@2.842.0 && \
-#    npm install memcached@2.2.2 && \
-#    npm install mongodb@3.6.4 && \
-#    npm install ioredis@4.22.0 && \
-#    npm install rethinkdbdash@2.3.31
+#RUN npm install pg
+#RUN npm install aws-sdk
+#RUN npm install memcached
+#RUN npm install mongodb
+#RUN npm install ioredis
+#RUN npm install rethinkdbdash
 
 ENV PORT=7777
 

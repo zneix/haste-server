@@ -81,6 +81,7 @@ const utils = new HasteUtils();
 	app.get('/raw/:id', async (req, res) => {
 		const key = req.params.id.split('.')[0];
 		const skipExpire = Boolean(config.documents[key]);
+		res.setHeader('content-type', 'text/plain');
 		return await documentHandler.handleGetRaw(key, res, skipExpire);
 	});
 

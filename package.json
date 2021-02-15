@@ -20,7 +20,7 @@
 		"express": "^4.17.1",
 		"express-rate-limit": "^5.1.3",
 		"ioredis": "^4.22.0",
-		"memcached": "^3.6.4",
+		"memcached": "^2.2.2",
 		"mongodb": "^3.6.4",
 		"pg": "^8.5.1",
 		"rethinkdbdash": "^2.3.31",
@@ -30,7 +30,7 @@
 	"optionalDependencies": {
 		"aws-sdk": "^2.842.0",
 		"ioredis": "^4.22.0",
-		"memcached": "^3.6.4",
+		"memcached": "^2.2.2",
 		"mongodb": "^3.6.4",
 		"pg": "^8.5.1",
 		"rethinkdbdash": "^2.3.31"

@@ -6,12 +6,12 @@ COPY . .
 # Replace prod with prod-min to exclude the optional dbms dependencies
 # and uncomment the needed one below to build a smaller Docker image.
 RUN npm run prod
-#RUN npm install pg
-#RUN npm install aws-sdk
-#RUN npm install memcached
-#RUN npm install mongodb
-#RUN npm install ioredis
-#RUN npm install rethinkdbdash
+#RUN npm install --no-package-lock pg
+#RUN npm install --no-package-lock aws-sdk
+#RUN npm install --no-package-lock memcached
+#RUN npm install --no-package-lock mongodb
+#RUN npm install --no-package-lock ioredis
+#RUN npm install --no-package-lock rethinkdbdash
 
 FROM mhart/alpine-node:slim-14
 RUN apk add --no-cache curl

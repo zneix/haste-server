@@ -15,7 +15,7 @@
 	},
 	"main": "server.js",
 	"dependencies": {
-		"@babel/cli": "^7.11.6",
+		"@babel/cli": "^7.12.17",
 		"@babel/core": "^7.11.6",
 		"babel-plugin-minify-mangle-names": "^0.5.0",
 		"busboy": "^0.3.1",

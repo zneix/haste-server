@@ -180,3 +180,7 @@ textarea {
 #messages li.error {
 	background:rgba(102,8,0,0.8);
 }
+
+#lineos {
+	user-select: none;
+}

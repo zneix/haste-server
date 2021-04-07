@@ -20,4 +20,5 @@ npm-debug.log
 static/application.min.js
 config.js
 Dockerfile
+Dockerfile.multiarch
 docker-compose.yml

@@ -16,6 +16,8 @@ In alphabetical order:
 - [Postgres](#postgres)
 - [Redis](#redis)
 - [RethinkDB](#rethinkdb)
+- [Amazon DynamoDB](#amazon-dynamodb)
+- [Cloudant](#cloudant)
 
 
 ## Amazon S3
@@ -164,4 +166,54 @@ Check [documentation](https://github.com/neumino/rethinkdbdash#new-features-and-
     "db": "dbname"
   }
 }
+```
+
+## Amazon DynamoDB
+
+To use Amazon DynamoDB store, you must install `@aws-sdk/client-dynamodb` via `npm` or `yarn`
+
+The table must be pre-create before running the server.
+Check [documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/interfaces/dynamodbclientconfig.html) for more `DynamoDBClientConfig` options.
+
+```json
+{
+  "type": "amazon-dynamodb",
+  "table": "tablename",
+  "expire": 0,
+  "clientOptions": {
+    "region": "region-code",
+    "credentials": {
+      "accessKeyId": "access key id here",
+      "secretAccessKey": "super secret access key here"
+    }
+  }
+}
+```
+
+## Cloudant
+
+To use S3 compatible object storage, you must install `@cloudant/cloudant` via `npm` or `yarn`
+
+Before start server, create a database with your preffered name.
+Check [documentation](https://github.com/cloudant/nodejs-cloudant/blob/master/README.md) for more detailed configuration.
+
+```json
+{
+  "type": "cloudant",
+  "db": "dbname",
+  "expire": 0,
+  "clientOptions": {
+    "url": "https://your.cloudant.service",
+    // If you use username and password for authentication
+    "username": "username",
+    "password": "password",
+    // If you use IBM Cloud's IAM API Key for authentication
+    "plugins": {
+      "iamauth": {
+        "iamApiKey": "your iam api key here"
+      }
+    }
+  }
+}
+
 ```

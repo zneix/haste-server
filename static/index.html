@@ -1,15 +1,16 @@
+<!DOCTYPE html>
 <html>
 	<head>
 		<title>hastebin</title>
-		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="solarized_dark.css"/>
-		<link rel="stylesheet" type="text/css" href="application.css"/>
+		<meta charset="utf-8">
+		<meta name="robots" content="noindex,nofollow">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+		<link rel="stylesheet" type="text/css" href="solarized_dark.css">
+		<link rel="stylesheet" type="text/css" href="application.css">
 
 		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 		<script type="text/javascript" src="highlight.min.js"></script>
 		<script type="text/javascript" src="application.min.js"></script>
-
-		<meta name="robots" content="noindex,nofollow"/>
 
 		<script type="text/javascript">
 			let app = null;
@@ -39,13 +40,11 @@
 			});
 		</script>
 
-	</head>
-
 	<body>
 		<ul id="messages"></ul>
 
 		<div id="key">
-		  <div id="pointer" style="display: none;"></div>
+			<div id="pointer" style="display: none;"></div>
 			<div id="box1">
 				<a href="about.md" class="logo"></a>
 			</div>
@@ -63,7 +62,7 @@
 		</div>
 
 		<div id="linenos"></div>
-		<pre id="box" style="display: none;" class="hljs" tabindex="0"><code></code></pre>
-		<textarea spellcheck="false" style="display: none;"></textarea>
-	</body>
-</html>
+		<div class="text-container">
+			<pre id="box" style="display: none;" class="hljs" tabindex="0"><code></code></pre>
+			<textarea spellcheck="false" style="display: none;"></textarea>
+		</div>

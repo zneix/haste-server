@@ -21,7 +21,7 @@ const utils = new HasteUtils();
 	//load config and set some defaults
 	const config = require('./config');
 
-	config.host = process.env.HOST || config.host || '127.0.0.1';
+	config.host = process.env.HOST || config.host || null;
 	config.port = process.env.PORT || config.port || 7777;
 
 	//set up logger
@@ -117,6 +117,6 @@ const utils = new HasteUtils();
 		index: 'index.html'
 	}));
 
-	app.listen(config.port, config.host, () => winston.info(`listening on ${config.host}:${config.port}`));
+	app.listen(config.port, config.host, () => winston.info(`listening on ${(config.host === null ? '' : config.host + ':')}${config.port}`));
 
 })();

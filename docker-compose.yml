@@ -1,0 +1,25 @@
+version: "3.0"
+services:
+  haste-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: zneix/haste-server
+    container_name: haste-server
+    network_mode: "bridge"
+    volumes:
+      # Default place to put files, can be removed with other storage system
+      - haste-data:/app/data:rw
+
+      # Create config.js from the example config and make changes
+      - ./config.js:/app/config.js:ro
+
+      # PostgreSQL unix socket connection for use with pg storage and postgres database on host
+      #- /var/run/postgresql:/var/run/postgresql:rw
+    ports:
+      - "127.0.0.1:7777:7777/tcp"
+      - "::1:7777:7777/tcp"
+    restart: unless-stopped
+
+volumes:
+  haste-data:

@@ -60,7 +60,7 @@ textarea {
 	outline: none;
 	font-size: 13px;
 	overflow: inherit;
-	margin-bottom: 20px;
+	padding-bottom: 20px;
 }
 
 #box code {

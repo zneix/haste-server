@@ -1,7 +1,24 @@
+body, html {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	height: 100%;
+}
+
 body {
+	user-select: none;
 	background: #002B36;
+}
+
+.text-container {
 	padding: 20px 50px;
-	margin: 0px;
+	width: calc(100% - 100px);
+	height: calc(100% - 40px);
+}
+
+.text-container > pre,
+.text-container > textarea {
+	user-select: text;
 }
 
 /* textarea */
@@ -10,7 +27,7 @@ textarea {
 	background: transparent;
 	border: 0px;
 	color: #fff;
-	padding: 0px;
+	padding: 0;
 	width: 100%;
 	height: 100%;
 	font-family: monospace;
@@ -22,11 +39,11 @@ textarea {
 /* the line numbers */
 
 #linenos {
-  color: #7d7d7d;
+	color: #7d7d7d;
 	z-index: -1000;
 	position: absolute;
 	top: 20px;
-	left: 0px;
+	left: 0;
 	width: 30px; /* 30 to get 20 away from box */
 	font-size: 13px;
 	font-family: monospace;
@@ -36,17 +53,18 @@ textarea {
 /* code box when locked */
 
 #box {
-	padding: 0px;
-	margin: 0px;
+	padding: 0;
+	margin: 0;
 	width: 100%;
-	border: 0px;
+	border: 0;
 	outline: none;
 	font-size: 13px;
-  overflow: inherit;
+	overflow: inherit;
+	padding-bottom: 20px;
 }
 
 #box code {
-	padding: 0px;
+	padding: 0;
 	background: transparent !important; /* don't hide hastebox */
 }
 
@@ -54,8 +72,8 @@ textarea {
 
 #key {
 	position: fixed;
-	top: 0px;
-	right: 0px;
+	top: 0;
+	right: 0;
 	z-index: +1000; /* watch out */
 }
 
@@ -67,8 +85,8 @@ textarea {
 
 #box2 {
 	background: #08323c;
-	font-size: 0px;
-	padding: 0px 5px;
+	font-size: 0;
+	padding: 0 5px;
 }
 
 #box1 a.logo, #box1 a.logo:visited {
@@ -104,11 +122,11 @@ textarea {
 	height: 5px;
 	width: 10px;
 	background: url(hover-dropdown-tip.png);
-	bottom: 0px;
+	bottom: 0;
 	position: absolute;
 	margin: auto;
-	left: 0px;
-	right: 0px;
+	left: 0;
+	right: 0;
 }
 
 #box3, #messages li {
@@ -152,7 +170,7 @@ textarea {
 
 #messages {
 	position:fixed;
-	top:0px;
+	top:0;
 	right:138px;
 	margin:0;
 	padding:0;
@@ -168,4 +186,3 @@ textarea {
 #messages li.error {
 	background:rgba(102,8,0,0.8);
 }
-

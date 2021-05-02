@@ -6,6 +6,7 @@ body, html {
 }
 
 body {
+	user-select: none;
 	background: #002B36;
 }
 
@@ -13,6 +14,11 @@ body {
 	padding: 20px 50px;
 	width: calc(100% - 100px);
 	height: calc(100% - 40px);
+}
+
+.text-container > pre,
+.text-container > textarea {
+	user-select: text;
 }
 
 /* textarea */
@@ -179,8 +185,4 @@ textarea {
 
 #messages li.error {
 	background:rgba(102,8,0,0.8);
-}
-
-#linenos {
-	user-select: none;
 }

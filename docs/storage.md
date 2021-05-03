@@ -81,8 +81,11 @@ Check [documentation](https://mongodb.github.io/node-mongodb-native/3.5/api/Mong
 
 ## Postgres
 
-You will have to create the database and add a table named `entries`. It can be easily done with the following query:  
+(Optionally) Create a user for your database:  
+`CREATE USER haste WITH ENCRYPTED PASSWORD 'password';`
 
+You will have to create the database and add a table named `entries`. It can be easily done with the following queries:  
+`CREATE DATABASE haste OWNER haste;`  
 `CREATE TABLE entries (id SERIAL PRIMARY KEY, key VARCHAR(255) NOT NULL, value TEXT NOT NULL, expiration INT, UNIQUE(key));`
 
 Properties in `clientOptions` are optimal defaults and should be sufficient to run haste, however more detailed explanation for them can be found in pg package [documentation](https://node-postgres.com/api/client).  

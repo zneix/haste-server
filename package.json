@@ -28,7 +28,7 @@
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {
-		"eslint": "^7.25.0",
+		"eslint": "^7.26.0",
 		"mocha": "^8.4.0"
 	},
 	"scripts": {

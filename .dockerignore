@@ -1,0 +1,12 @@
+node_modules
+.vscode
+data
+data-test
+
+*.swp
+*.swo
+*.DS_Store
+
+npm-debug.log
+static/*.min.js
+config.js

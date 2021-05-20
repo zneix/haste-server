@@ -1,0 +1,11 @@
+version: "3.0"
+services:
+  haste-server:
+    build: .
+    ports:
+      - 7777:7777
+    volumes:
+      - haste-data:/usr/src/app/data
+
+volumes: 
+  haste-data:

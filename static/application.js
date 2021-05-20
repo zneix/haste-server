@@ -29,7 +29,7 @@ class haste_document {
 						high = { value: _this.htmlEscape(res.data) };
 					}
 					else if (lang){
-						high = hljs.highlight(lang, res.data);
+						high = hljs.highlight(res.data, {language: lang});
 					}
 					else {
 						high = hljs.highlightAuto(res.data);

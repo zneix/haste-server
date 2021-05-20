@@ -16,11 +16,37 @@ In alphabetical order:
 - [Postgres](#postgres)
 - [Redis](#redis)
 - [RethinkDB](#rethinkdb)
+- [Amazon DynamoDB](#amazon-dynamodb)
+- [Cloudant](#cloudant)
 
 
 ## Amazon S3
 
-Not rewritten yet, to be filled in
+Stores documents in a specified s3 storage bucket.
+To use S3 compatible object storage, you must install `@aws-sdk/client-s3` via `npm` or `yarn`
+
+The bucket must be pre-create before running the server.
+Check [documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-s3/interfaces/s3clientconfig.html) for more `S3ClientConfig` options.
+
+```json
+{
+  "type": "amazon-s3",
+  "bucket": "bucketname",
+  "expire": 0,
+  "clientOptions": {
+    "region": "region-code",
+    "credentials": {
+      "accessKeyId": "access key id here",
+      "secretAccessKey": "super secret access key here"
+    },
+    // For custom endpoint or S3 compatible storage 
+    // like Minio, DigitalOcean Spaces, IBM Cloud Object Storage, Backblaze B2 cloud storage...
+    "endpoint": "https://custom.s3.endpoint",
+    // For Minio to work
+    "forcePathStyle": true
+  }
+}
+```
 
 
 ## File
@@ -126,4 +152,71 @@ Expiration property in config can be changed to a value in seconds after which e
 
 ## RethinkDB
 
-Not rewritten yet, to be filled in
+To use the RethinkDB storage system, you must install the `rethinkdbdash` package via `npm` or `yarn`
+
+Create a database and a table with with your preferred name, which will store all data.
+Replace `dbname` and `tablename` in config object below with the real name of database and table respectively.
+Check [documentation](https://github.com/neumino/rethinkdbdash#new-features-and-differences) for more config options.
+
+```json
+{
+  "type": "rethinkdb",
+  "table": "tablename",
+  "expire": 0,
+  "clientOptions": {
+    "host": "127.0.0.1",
+    "port": 28015,
+    "db": "dbname"
+  }
+}
+```
+
+## Amazon DynamoDB
+
+To use Amazon DynamoDB store, you must install `@aws-sdk/client-dynamodb` via `npm` or `yarn`
+
+The table must be pre-create before running the server.
+Check [documentation](https://docs.aws.amazon.com/AWSJavaScriptSDK/v3/latest/clients/client-dynamodb/interfaces/dynamodbclientconfig.html) for more `DynamoDBClientConfig` options.
+
+```json
+{
+  "type": "amazon-dynamodb",
+  "table": "tablename",
+  "expire": 0,
+  "clientOptions": {
+    "region": "region-code",
+    "credentials": {
+      "accessKeyId": "access key id here",
+      "secretAccessKey": "super secret access key here"
+    }
+  }
+}
+```
+
+## Cloudant
+
+To use S3 compatible object storage, you must install `@cloudant/cloudant` via `npm` or `yarn`
+
+Before start server, create a database with your preffered name.
+Check [documentation](https://github.com/cloudant/nodejs-cloudant/blob/master/README.md) for more detailed configuration.
+
+```json
+{
+  "type": "cloudant",
+  "db": "dbname",
+  "expire": 0,
+  "clientOptions": {
+    "url": "https://your.cloudant.service",
+    // If you use username and password for authentication
+    "username": "username",
+    "password": "password",
+    // If you use IBM Cloud's IAM API Key for authentication
+    "plugins": {
+      "iamauth": {
+        "iamApiKey": "your iam api key here"
+      }
+    }
+  }
+}
+
+```

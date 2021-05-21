@@ -24,7 +24,7 @@
 		"ioredis": "^4.27.2",
 		"mongodb": "^3.6.6",
 		"pg": "^8.6.0",
-		"st": "^2.0.0",
+		"st": "^3.0.0",
 		"winston": "^3.3.3"
 	},
 	"devDependencies": {

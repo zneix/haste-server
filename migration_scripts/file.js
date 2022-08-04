@@ -23,9 +23,11 @@ const newDataFolder = '../newdata';
 		const pasteContent = await fsp.readFile(`${oldDataFolder}/${paste}`, { encoding: 'utf8' });
 
 		const newFormat = JSON.stringify({
-			data: pasteContent,
-			deleteKey: null,
-			creationDate: null
+			pasteContent,
+			meta: {
+				deletekey: null,
+				creationDate: null
+			}
 		});
 
 		await fsp.writeFile(`${newDataFolder}/${paste}`, newFormat);

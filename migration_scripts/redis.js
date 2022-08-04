@@ -11,9 +11,11 @@ const newRedis = new Redis({ host: '127.0.0.1', db: 15 });
 		const pasteContent = await oldRedis.get(paste);
 
 		const newFormat = JSON.stringify({
-			data: pasteContent,
-			deleteKey: null,
-			creationDate: null
+			pasteContent,
+			meta: {
+				deletekey: null,
+				creationDate: null
+			}
 		});
 
 		await newRedis.hset('hastebin', paste, newFormat);

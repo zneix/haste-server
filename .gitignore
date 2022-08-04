@@ -1,12 +1,15 @@
 node_modules
 .vscode
 data
-data-test
 
-*.swp
-*.swo
-*.DS_Store
+static/js/application.min.js
 
-npm-debug.log
-static/*.min.js
 config.js
+
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions

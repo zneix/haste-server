@@ -1,0 +1,162 @@
+html, body {
+	height: 100%;
+	width: 100%;
+}
+
+body {
+	background: #121212;
+	margin: 0;
+	font-family: sans-serif;
+	overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* textarea */
+
+textarea {
+	color-scheme: dark;
+	background: #121212;
+	border: 0px;
+	color: #fff;
+	width: 100%;
+	max-height: 84%;
+	font-family: monospace;
+	outline: none;
+	resize: none;
+	font-size: 13px;
+	margin-top: 0;
+	margin-bottom: 0;
+	padding: 20px 20px 80px 0;
+}
+
+.logo a:hover svg path {
+	fill: #fff;
+}
+
+/* the line numbers */
+
+#linenos {
+	color: #7d7d7d;
+	z-index: -1000;
+	font-size: 13px;
+	font-family: monospace;
+	text-align: right;
+	user-select: none;
+	padding: 20px 20px 80px 20px;
+	flex-shrink: 0;
+}
+
+/* code box when locked */
+
+#box {
+	padding: 20px 20px 20px 0;
+	margin: 0px;
+	width: 100%;
+	border: 0px;
+	outline: none;
+	font-size: 13px;
+	overflow: auto;
+}
+
+#box code {
+	padding: 0px;
+	background: transparent !important; /* don't hide hastebox */
+}
+
+/* key */
+
+#key {
+	z-index: +1000; /* watch out */
+}
+
+button {
+	font-size: 14px;
+	color: #929EA4;
+	background: transparent;
+	outline: none;
+	border: none;
+	padding: 4px 10px;
+	cursor: not-allowed;
+}
+
+button.enabled {
+	color: #FFF;
+	cursor: pointer;
+}
+
+.button-wrap .label {
+    display: none;
+    position: absolute;
+    top: -36px;
+    left: 50%;
+    margin-left: -46px;
+    text-align: center;
+    background: #15191b;
+    color: #fff;
+    padding: 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    width: 76px;
+}
+
+.button-wrap .label.label--small {
+	margin-left: -30px;
+	width: 44px;
+}
+
+.button-wrap:hover .label {
+	display: block;
+}
+
+.menu {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: #121212;
+}
+
+.menu-actions {
+	display: flex;
+}
+
+#messages {
+	position: absolute;
+	left: 0;
+	right: 0;
+	margin-left: auto;
+	margin-right: auto;
+	color: #FFFFFF;
+ 	padding: 10px;
+	width: 400px;
+}
+
+#messages li {
+	background: #303F9F;
+	text-align: center;
+	list-style: none;
+}
+
+#messages li.error {
+	background: #C62828;
+}
+
+@media only screen and (max-width: 600px) {
+	.logo, .label {
+		display: none !important;
+	}
+	.menu {
+		padding: 24px 12px !important;
+	}
+	.menu-actions {
+		width: 100%;
+	}
+	.menu-actions button {
+		padding-left: 0;
+		padding-right: 0;
+	}
+	.menu-actions .button-wrap {
+		flex: auto;
+		text-align: center;
+	}
+}

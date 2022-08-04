@@ -13,28 +13,30 @@
 		"email": "john.crepezzi@gmail.com",
 		"url": "http://seejohncode.com/"
 	},
-	"main": "server.js",
+	"main": "app.js",
 	"dependencies": {
-		"@babel/cli": "^7.13.16",
-		"@babel/core": "^7.14.2",
-		"babel-plugin-minify-mangle-names": "^0.5.0",
-		"busboy": "^0.3.1",
-		"express": "^4.17.1",
-		"express-rate-limit": "^5.2.6",
-		"ioredis": "^4.27.2",
-		"mongodb": "^3.6.6",
-		"pg": "^8.6.0",
-		"st": "^2.0.0",
-		"winston": "^3.3.3"
+		"@fastify/sensible": "^5.1.0",
+		"@fastify/static": "^6.5.0",
+		"fastify": "^4.3.0",
+		"ioredis": "^5.2.2",
+		"mongodb": "^4.8.1",
+		"pg": "^8.7.3",
+		"pino": "^8.3.1",
+		"pino-pretty": "^8.1.0"
 	},
 	"devDependencies": {
-		"eslint": "^7.26.0",
-		"mocha": "^8.4.0"
+		"@babel/cli": "^7.18.10",
+		"@babel/core": "^7.18.10",
+		"babel-plugin-minify-mangle-names": "^0.5.1",
+		"eslint": "^8.21.0",
+		"eslint-plugin-unicorn": "^43.0.2",
+		"mocha": "^10.0.0"
 	},
 	"scripts": {
-		"build": "npm install && npx babel --plugins minify-mangle-names --no-comments --minified static/application.js --out-file static/application.min.js",
-		"start": "node server.js",
+		"build": "yarn && npx babel --plugins minify-mangle-names --no-comments --minified static/js/application.js --out-file static/js/application.min.js",
+		"start": "node app.js",
 		"test": "mocha --recursive",
 		"testformat": "npx eslint ./"
-	}
+	},
+	"packageManager": "yarn@3.2.2"
 }

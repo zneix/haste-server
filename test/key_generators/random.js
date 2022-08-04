@@ -11,7 +11,7 @@ describe('KeyGenerator', () => {
 		});
 
 		it('should use a key from the given keyset if given', () => {
-			const gen = new Generator({keyspace: 'A'});
+			const gen = new Generator({ keyspace: 'A' });
 			assert.strictEqual('AAAAAA', gen.createKey(6));
 		});
 	});

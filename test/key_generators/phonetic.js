@@ -16,8 +16,11 @@ describe('KeyGenerator', () => {
 			const vowels = 'aeiouy';
 			const key = gen.createKey(3);
 
-			if (vowels.includes(key[0])) assert.ok(vowels.includes(key[2]));
-			else assert.ok(vowels.includes(key[1]));
+			if (vowels.includes(key[0])) {
+				assert.ok(vowels.includes(key[2]));
+			} else {
+				assert.ok(vowels.includes(key[1]));
+			}
 		});
 	});
 });

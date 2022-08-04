@@ -9,19 +9,10 @@ With some storage options you can set up document expiration - after which docum
 
 In alphabetical order:
 
-- [Amazon S3](#amazon-s3)
 - [File](#file)
-- [Memcached](#memcached)
 - [MongoDB](#mongodb)
 - [Postgres](#postgres)
 - [Redis](#redis)
-- [RethinkDB](#rethinkdb)
-
-
-## Amazon S3
-
-Not rewritten yet, to be filled in
-
 
 ## File
 
@@ -38,12 +29,6 @@ Config:
 	"path": "./data"
 }
 ```
-
-
-## Memcached
-
-Not rewritten yet, to be filled in
-
 
 ## MongoDB
 
@@ -77,7 +62,6 @@ Check [documentation](https://mongodb.github.io/node-mongodb-native/3.5/api/Mong
 	}
 }
 ```
-
 
 ## Postgres
 
@@ -123,7 +107,3 @@ Expiration property in config can be changed to a value in seconds after which e
 	}
 }
 ```
-
-## RethinkDB
-
-Not rewritten yet, to be filled in

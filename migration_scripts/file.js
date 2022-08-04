@@ -32,5 +32,6 @@ const newDataFolder = '../newdata';
 
 		await fsp.writeFile(`${newDataFolder}/${paste}`, newFormat);
 	}
+	logger.info('Migration completed');
 })();
 

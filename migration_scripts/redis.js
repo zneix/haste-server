@@ -9,6 +9,7 @@ const newRedis = new Redis({ host: '127.0.0.1', db: 15 });
 	for (const paste of oldPasteData) {
 		logger.info(`Handling paste ${paste}`);
 		const pasteContent = await oldRedis.get(paste);
+		const pasteTTL = await oldRedis.ttl(paste);
 
 		const newFormat = JSON.stringify({
 			pasteContent,
@@ -18,7 +19,12 @@ const newRedis = new Redis({ host: '127.0.0.1', db: 15 });
 			}
 		});
 
-		await newRedis.hset('hastebin', paste, newFormat);
+		if (pasteTTL) {
+			await newRedis.set(paste, newFormat, 'EX', pasteTTL);
+		} else {
+			await newRedis.set(paste, newFormat);
+		}
 	}
+	logger.info('Migration completed');
 })();
 

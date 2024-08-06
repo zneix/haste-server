@@ -1,5 +1,5 @@
-const fsp = require('fs/promises');
-const fs = require('fs');
+const fsp = require('node:fs/promises');
+const fs = require('node:fs');
 const logger = require('../lib/logger.js');
 
 const oldDataFolder = '../data';

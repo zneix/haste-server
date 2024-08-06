@@ -19,11 +19,7 @@ const newRedis = new Redis({ host: '127.0.0.1', db: 15 });
 			}
 		});
 
-		if (pasteTTL) {
-			await newRedis.set(paste, newFormat, 'EX', pasteTTL);
-		} else {
-			await newRedis.set(paste, newFormat);
-		}
+		await (pasteTTL ? newRedis.set(paste, newFormat, 'EX', pasteTTL) : newRedis.set(paste, newFormat));
 	}
 	logger.info('Migration completed');
 })();

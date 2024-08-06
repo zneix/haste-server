@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 
 const fastify = require('./lib/fastify.js');
 
@@ -118,14 +118,18 @@ const DocumentHandler = require('./lib/document_handler');
 
 		const deleteResult = await documentHandler.deleteDocument(pasteKey, deleteKey);
 		switch (deleteResult) {
-		case null:
+		case null: {
 			return reply.notFound('Document not found');
-		case false:
+		}
+		case false: {
 			return reply.forbidden('Invalid Delete Key');
-		case true:
+		}
+		case true: {
 			return reply.send('Document deleted successfully.');
-		default:
+		}
+		default: {
 			return reply.internalServerError();
+		}
 		}
 	});
 

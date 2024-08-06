@@ -1,3 +1,4 @@
+/* eslint-disable unicorn/no-this-assignment */
 /* global hljs */
 
 // /// represents a single document
@@ -9,10 +10,10 @@ class HasteDocument {
 	// Escapes HTML tag characters
 	htmlEscape (s) {
 		return s
-			.replace(/&/g, '&amp;')
-			.replace(/>/g, '&gt;')
-			.replace(/</g, '&lt;')
-			.replace(/"/g, '&quot;');
+			.replaceAll('&', '&amp;')
+			.replaceAll('>', '&gt;')
+			.replaceAll('<', '&lt;')
+			.replaceAll('"', '&quot;');
 	}
 	// Get this document from the server and lock it here
 	async load (key, lang) {
@@ -42,7 +43,7 @@ class HasteDocument {
 			} else {
 				high = hljs.highlightAuto(data);
 			}
-		} catch (e) {
+		} catch {
 			high = hljs.highlightAuto(data);
 		}
 
@@ -263,7 +264,7 @@ class haste {
 					return evt.ctrlKey && (evt.keyCode === 83);
 				},
 				action: async function () {
-					if (_this.$textarea.value.replace(/^\s+|\s+$/g, '') !== '') {
+					if (_this.$textarea.value.replaceAll(/^\s+|\s+$/g, '') !== '') {
 						await _this.lockDocument();
 					}
 				}

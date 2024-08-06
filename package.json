@@ -15,22 +15,24 @@
 	},
 	"main": "app.js",
 	"dependencies": {
-		"@fastify/sensible": "^5.1.0",
-		"@fastify/static": "^6.5.0",
-		"fastify": "^4.3.0",
-		"ioredis": "^5.2.2",
-		"mongodb": "^4.8.1",
-		"pg": "^8.7.3",
-		"pino": "^8.3.1",
-		"pino-pretty": "^8.1.0"
+		"@fastify/sensible": "^5.6.0",
+		"@fastify/static": "^7.0.4",
+		"fastify": "^4.28.1",
+		"ioredis": "^5.4.1",
+		"mongodb": "^6.8.0",
+		"pg": "^8.12.0",
+		"pino": "^9.3.2",
+		"pino-pretty": "^11.2.2"
 	},
 	"devDependencies": {
-		"@babel/cli": "^7.18.10",
-		"@babel/core": "^7.18.10",
+		"@babel/cli": "^7.24.8",
+		"@babel/core": "^7.25.2",
+		"@eslint/js": "^9.8.0",
 		"babel-plugin-minify-mangle-names": "^0.5.1",
-		"eslint": "^8.21.0",
-		"eslint-plugin-unicorn": "^43.0.2",
-		"mocha": "^10.0.0"
+		"eslint": "^9.8.0",
+		"eslint-plugin-unicorn": "^55.0.0",
+		"globals": "^15.9.0",
+		"mocha": "^10.7.0"
 	},
 	"scripts": {
 		"build": "yarn && npx babel --plugins minify-mangle-names --no-comments --minified static/js/application.js --out-file static/js/application.min.js",
@@ -38,5 +40,5 @@
 		"test": "mocha --recursive",
 		"testformat": "npx eslint ./"
 	},
-	"packageManager": "yarn@3.2.2"
+	"packageManager": "yarn@4.4.0"
 }
